@@ -90,7 +90,6 @@ class SleepTrackerViewModel(
             if (night?.endTimeMilli != night?.startTimeMilli) {
                 night = null
             }
-            
             night
         }
     }
