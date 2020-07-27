@@ -50,6 +50,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+    //recyclerView dependencies
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+
     // Support libraries
     implementation "androidx.appcompat:appcompat:1.0.2"
     implementation "androidx.fragment:fragment:1.0.0"

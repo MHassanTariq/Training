@@ -16,6 +16,7 @@
 
 package com.example.android.trackmysleepquality.sleepquality
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,7 +24,7 @@ import com.example.android.trackmysleepquality.database.SleepDatabaseDao
 import kotlinx.coroutines.*
 
 class SleepQualityViewModel(
-        private val sleepNightKey: Long = 0L,
+        private var sleepNightKey: Long = 0L,
         val database: SleepDatabaseDao) : ViewModel() {
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
@@ -40,11 +41,13 @@ class SleepQualityViewModel(
             // IO is a thread pool for running operations that access the disk, such as
             // our Room database.
             withContext(Dispatchers.IO) {
+                Log.d("SleepQualityViewModel", "withContext ran")
                 val tonight = database.get(sleepNightKey) ?: return@withContext
+                Log.d("SleepQualityViewModel", "withContext after return ran")
                 tonight.sleepQuality = quality
                 database.update(tonight)
             }
-
+            Log.d("SleepQualityViewModel", "uiScope.launch called")
             // Setting this state variable to true will alert the observer and trigger navigation.
             _navigateToSleepTracker.value = true
         }
